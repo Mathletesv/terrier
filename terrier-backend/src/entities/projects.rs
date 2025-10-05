@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[derive(
     Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa :: ToSchema,
 )]
-#[sea_orm(table_name = "hackathons")]
+#[sea_orm(table_name = "projects")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
@@ -15,21 +15,29 @@ pub struct Model {
     pub slug: String,
     #[sea_orm(column_type = "Text", nullable)]
     pub description: Option<String>,
-    pub start_date: DateTime,
-    pub end_date: DateTime,
-    pub is_active: bool,
-    pub created_at: DateTime,
-    pub updated_at: DateTime,
+    pub submission_date: DateTime,
+    pub hackathon_id: i32,
+    pub team_id: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::hackathon_teams::Entity")]
+    #[sea_orm(
+        belongs_to = "super::hackathon_teams::Entity",
+        from = "Column::TeamId",
+        to = "super::hackathon_teams::Column::Id",
+        on_update = "NoAction",
+        on_delete = "Cascade"
+    )]
     HackathonTeams,
-    #[sea_orm(has_many = "super::projects::Entity")]
-    Projects,
-    #[sea_orm(has_many = "super::user_hackathon_roles::Entity")]
-    UserHackathonRoles,
+    #[sea_orm(
+        belongs_to = "super::hackathons::Entity",
+        from = "Column::HackathonId",
+        to = "super::hackathons::Column::Id",
+        on_update = "NoAction",
+        on_delete = "Cascade"
+    )]
+    Hackathons,
 }
 
 impl Related<super::hackathon_teams::Entity> for Entity {
@@ -38,15 +46,9 @@ impl Related<super::hackathon_teams::Entity> for Entity {
     }
 }
 
-impl Related<super::projects::Entity> for Entity {
+impl Related<super::hackathons::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::Projects.def()
-    }
-}
-
-impl Related<super::user_hackathon_roles::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::UserHackathonRoles.def()
+        Relation::Hackathons.def()
     }
 }
 

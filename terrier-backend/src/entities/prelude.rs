@@ -2,5 +2,6 @@
 
 pub use super::hackathon_teams::Entity as HackathonTeams;
 pub use super::hackathons::Entity as Hackathons;
+pub use super::projects::Entity as Projects;
 pub use super::user_hackathon_roles::Entity as UserHackathonRoles;
 pub use super::users::Entity as Users;

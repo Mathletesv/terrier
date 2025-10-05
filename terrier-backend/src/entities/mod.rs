@@ -4,5 +4,6 @@ pub mod prelude;
 
 pub mod hackathon_teams;
 pub mod hackathons;
+pub mod projects;
 pub mod user_hackathon_roles;
 pub mod users;

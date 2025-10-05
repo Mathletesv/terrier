@@ -6,6 +6,7 @@ mod m20250930_182935_create_hackathons_table;
 mod m20250930_183801_create_user_hackathon_roles_table;
 mod m20250930_225342_remove_individual_user_role;
 mod m20251004_234422_create_hackathon_teams_table;
+mod m20251005_005135_create_projects_table;
 
 pub struct Migrator;
 
@@ -19,6 +20,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20250930_183801_create_user_hackathon_roles_table::Migration),
             Box::new(m20250930_225342_remove_individual_user_role::Migration),
             Box::new(m20251004_234422_create_hackathon_teams_table::Migration),
+            Box::new(m20251005_005135_create_projects_table::Migration),
         ]
     }
 }
