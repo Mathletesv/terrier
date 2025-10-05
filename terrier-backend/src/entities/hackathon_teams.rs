@@ -6,32 +6,33 @@ use serde::{Deserialize, Serialize};
 #[derive(
     Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa :: ToSchema,
 )]
-#[sea_orm(table_name = "users")]
+#[sea_orm(table_name = "hackathon_teams")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
+    pub name: String,
     #[sea_orm(unique)]
-    pub oidc_sub: String,
-    pub email: String,
-    pub name: Option<String>,
-    pub given_name: Option<String>,
-    pub family_name: Option<String>,
-    #[sea_orm(column_type = "Text", nullable)]
-    pub picture: Option<String>,
-    pub oidc_issuer: String,
+    pub slug: String,
+    pub hackathon_id: i32,
     pub created_at: DateTime,
     pub updated_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::user_hackathon_roles::Entity")]
-    UserHackathonRoles,
+    #[sea_orm(
+        belongs_to = "super::hackathons::Entity",
+        from = "Column::HackathonId",
+        to = "super::hackathons::Column::Id",
+        on_update = "NoAction",
+        on_delete = "Cascade"
+    )]
+    Hackathons,
 }
 
-impl Related<super::user_hackathon_roles::Entity> for Entity {
+impl Related<super::hackathons::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::UserHackathonRoles.def()
+        Relation::Hackathons.def()
     }
 }
 
