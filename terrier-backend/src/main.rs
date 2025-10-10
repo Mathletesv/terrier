@@ -42,7 +42,7 @@ pub async fn create_app(app_state: AppState) -> Result<Router, BoxError> {
     let session_layer = SessionManagerLayer::new(session_store)
         .with_secure(false)
         .with_same_site(SameSite::Lax)
-        .with_expiry(Expiry::OnInactivity(Duration::seconds(120)));
+        .with_expiry(Expiry::OnInactivity(Duration::hours(24)));
 
     let oidc_login_service = ServiceBuilder::new()
         .layer(HandleErrorLayer::new(|e: MiddlewareError| async {

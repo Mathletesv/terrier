@@ -4,6 +4,10 @@
             "path": "."
         },
         {
+            "name": "Documentation",
+            "path": "./terrier-docs"
+        },
+        {
             "name": "Frontend",
             "path": "./terrier-client"
         },
@@ -17,6 +21,7 @@
             "typescriptteam.native-preview",
             "tauri-apps.tauri-vscode",
             "svelte.svelte-vscode",
+            "astro-build.astro-vscode",
             "bradlc.vscode-tailwindcss",
             "tamasfe.even-better-toml",
             "rust-lang.rust-analyzer",

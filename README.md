@@ -6,6 +6,8 @@ See [SETUP.md](./SETUP.md) for instructions on how to host Terrier in production
 
 ## Development
 
+After opening the repository in VS Code, press "Open Workspace" in the `terrier.code-workspace` file.
+
 This project uses `just`, a make-like command runner. After [installing it](https://github.com/casey/just?tab=readme-ov-file#packages), you can use the following command to start the application in development mode:
 
 ```bash
